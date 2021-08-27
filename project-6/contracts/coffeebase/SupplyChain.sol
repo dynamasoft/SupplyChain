@@ -65,7 +65,7 @@ contract SupplyChain is FarmerRole, DistributorRole, RetailerRole, ConsumerRole 
   event Harvested(uint upc);
   event Processed(uint upc);
   event Packed(uint upc);
-  event ForSale(uint upc);
+  event ForSale(uint upc, uint price);
   event Sold(uint upc);
   event Shipped(uint upc);
   event Received(uint upc);
@@ -85,7 +85,7 @@ contract SupplyChain is FarmerRole, DistributorRole, RetailerRole, ConsumerRole 
 
   // Define a modifier that checks if the paid amount is sufficient to cover the price
   modifier paidEnough(uint _price) { 
-    require(msg.value >= _price); 
+    require(msg.value >= _price, "Not enough money"); 
     _;
   }
   
@@ -99,49 +99,49 @@ contract SupplyChain is FarmerRole, DistributorRole, RetailerRole, ConsumerRole 
 
   // Define a modifier that checks if an item.state of a upc is Harvested
   modifier harvested(uint _upc) {
-    require(items[_upc].itemState == State.Harvested);
+    require(items[_upc].itemState == State.Harvested, "Item is not in the harvest state");
     _;
   }
 
   // Define a modifier that checks if an item.state of a upc is Processed
   modifier processed(uint _upc) {
-    require(items[_upc].itemState == State.Processed);
+    require(items[_upc].itemState == State.Processed,"Item is not in the processed state");
     _;
   }
   
   // Define a modifier that checks if an item.state of a upc is Packed
   modifier packed(uint _upc) {
-    require(items[_upc].itemState == State.Packed);
+    require(items[_upc].itemState == State.Packed, "Item is not in the packed state");
     _;
   }
 
   // Define a modifier that checks if an item.state of a upc is ForSale
   modifier forSale(uint _upc) {
-    require(items[_upc].itemState == State.ForSale);
+    require(items[_upc].itemState == State.ForSale, "Item is not in the harvest for sale state");
     _;
   }
 
   // Define a modifier that checks if an item.state of a upc is Sold
   modifier sold(uint _upc) {
-    require(items[_upc].itemState == State.Sold);
+    require(items[_upc].itemState == State.Sold,"Item is not in the sold state");
     _;
   }
   
   // Define a modifier that checks if an item.state of a upc is Shipped
   modifier shipped(uint _upc) {
-    require(items[_upc].itemState == State.Shipped);
+    require(items[_upc].itemState == State.Shipped, "Item is not in the shipped state");
     _;
   }
 
   // Define a modifier that checks if an item.state of a upc is Received
   modifier received(uint _upc) {
-      require(items[_upc].itemState == State.Received);
+      require(items[_upc].itemState == State.Received,"Item is not in the received state");
     _;
   }
 
   // Define a modifier that checks if an item.state of a upc is Purchased
   modifier purchased(uint _upc) {
-    require(items[_upc].itemState == State.Purchased);
+    require(items[_upc].itemState == State.Purchased,"Item is not in the purchased state");
     _;
   }
 
@@ -201,8 +201,7 @@ contract SupplyChain is FarmerRole, DistributorRole, RetailerRole, ConsumerRole 
   harvested(_upc)
   // Call modifier to verify caller of this function
   verifyCaller(msg.sender)
-  onlyFarmer()
-  
+  onlyFarmer()  
   {
     // Update the appropriate fields
     items[_upc].itemState = State.Processed;
@@ -220,8 +219,7 @@ contract SupplyChain is FarmerRole, DistributorRole, RetailerRole, ConsumerRole 
     // Update the appropriate fields
     items[_upc].itemState = State.Packed;
     // Emit the appropriate event
-     emit Packed(_upc);
-    
+     emit Packed(_upc);    
   }
 
   // Define a function 'sellItem' that allows a farmer to mark an item 'ForSale'
@@ -235,7 +233,7 @@ contract SupplyChain is FarmerRole, DistributorRole, RetailerRole, ConsumerRole 
     items[_upc].itemState = State.ForSale;
     items[_upc].productPrice = _price;
     // Emit the appropriate event
-     emit ForSale(_upc);
+     emit ForSale(_upc, _price);
     
   }
 

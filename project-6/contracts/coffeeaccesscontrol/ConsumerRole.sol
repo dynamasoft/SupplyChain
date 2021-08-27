@@ -21,7 +21,7 @@ contract ConsumerRole{
 
   // Define a modifier that checks to see if msg.sender has the appropriate role
   modifier onlyConsumer() {
-    require(consumers.has(msg.sender),"sender is not a consumer");
+    require(isConsumer(msg.sender),"sender is not a consumer");
     _;
   }
 
@@ -31,7 +31,7 @@ contract ConsumerRole{
   }
 
   // Define a function 'addConsumer' that adds this role
-  function addConsumer(address account) public onlyConsumer {
+  function addConsumer(address account) public {
     _addConsumer(account);
   }
 
