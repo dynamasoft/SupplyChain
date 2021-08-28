@@ -6,16 +6,14 @@ var Web3 = require("web3");
 
 // For browserified version. If browserify gave us an empty version,
 // look for the one provided by the user.
-debugger;
 if (typeof Web3 == "object" && Object.keys(Web3).length == 0) {
-  Web3 = global.web3;
+  Web3 = global.Web3;
 }
 
 var contract = (function(module) {
 
   // Planned for future features, logging, etc.
   function Provider(provider) {
-    debugger;
     this.provider = provider;
   }
 
@@ -27,7 +25,6 @@ var contract = (function(module) {
     return this.provider.sendAsync.apply(this.provider, arguments);
   };
 
-  debugger;
   var BigNumber = (new Web3()).toBigNumber(0).constructor;
 
   var Utils = {
