@@ -263,27 +263,8 @@ contract("SupplyChain", function (accounts) {
 
   // 8th Test
   it("8. Testing smart contract function purchaseItem() that allows a consumer to purchase coffee", async () => {
-    await supplyChain.processItem(upc, { from: originFarmerID });
-    await supplyChain.packItem(upc, { from: originFarmerID });
-    await supplyChain.sellItem(upc, productPrice, { from: originFarmerID });
-    await supplyChain.buyItem(upc, {
-      from: distributorID,
-      value: web3.utils.toWei("5", "ether"),
-    });
-
-    // var event = await supplyChain.Purchased()
-    // truffleAssert.eventEmitted(event, "Received", (ev) => {
-    //     eventEmitted = true
-    //     itemState = 7
-    // })
-
-    var tx = await supplyChain.purchaseItem(upc, { from: consumerID });
-
-    truffleAssert.eventEmitted(tx, "Purchased", (ev) => {
-      eventEmitted = true;
-      //itemState = 7
-      return ev.upc == upc;
-    });
+    
+     var tx = await supplyChain.purchaseItem(upc, { from: consumerID });
 
     // Retrieve the just now saved item from blockchain by calling function fetchItem()
     const resultBufferOne = await supplyChain.fetchItemBufferOne.call(upc);
@@ -291,6 +272,8 @@ contract("SupplyChain", function (accounts) {
 
     // Verify the result set
     assert.equal(resultBufferTwo[5], PurchasedState, "Incorrect State");
+    assert.equal(resultBufferTwo[8], consumerID, 'Error: Missing or Invalid consumerID')
+    
     assert.equal(eventEmitted, true, "Invalid event emitted");
   });
 
@@ -319,7 +302,7 @@ contract("SupplyChain", function (accounts) {
     assert.equal(resultBufferTwo[2], productID, 'Error: Missing or Invalid productID')
     assert.equal(resultBufferTwo[3], productNotes, 'Error: Missing or Invalid productNotes')
     assert.equal(resultBufferTwo[4], productPrice, 'Error: Missing or Invalid productPrice')
-    assert.equal(resultBufferTwo[5], itemState, 'Error: Invalid item State')
+    assert.equal(resultBufferTwo[5], PurchasedState, 'Error: Invalid item State')
     assert.equal(resultBufferTwo[6], distributorID, 'Error: Missing or Invalid distributorID')
     assert.equal(resultBufferTwo[7], retailerID, 'Error: Missing or Invalid retailerID')
     assert.equal(resultBufferTwo[8], consumerID, 'Error: Missing or Invalid consumerID')

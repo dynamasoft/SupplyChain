@@ -296,7 +296,7 @@ contract SupplyChain is FarmerRole, DistributorRole, RetailerRole, ConsumerRole 
   // Use the above modifiers to check if the item is received
   function purchaseItem(uint _upc) public 
     // Call modifier to check if upc has passed previous supply chain stage
-    sold(_upc)
+    received(_upc)
     // Access Control List enforced by calling Smart Contract / DApp
     onlyConsumer()        
     {
