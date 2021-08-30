@@ -80,7 +80,7 @@
   "sourceMap": "156:1491:1:-;;;546:31;8:9:-1;5:2;;;30:1;27;20:12;5:2;546:31:1;156:1491;;;;;;",
   "deployedSourceMap": "156:1491:1:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;986:77;;8:9:-1;5:2;;;30:1;27;20:12;5:2;986:77:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;1131:73;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1131:73:1;;;;;;821:104;;8:9:-1;5:2;;;30:1;27;20:12;5:2;821:104:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;986:77;1037:21;1050:7;1037:12;:21::i;:::-;986:77;:::o;1131:73::-;1172:27;1188:10;1172:15;:27::i;:::-;1131:73::o;821:104::-;879:4;898:22;912:7;898:9;:13;;:22;;;;:::i;:::-;891:29;;821:104;;;:::o;1298:117::-;1352:22;1366:7;1352:9;:13;;:22;;;;:::i;:::-;1385:25;1402:7;1385:25;;;;;;;;;;;;;;;;;;;;;;1298:117;:::o;1518:126::-;1575:25;1592:7;1575:9;:16;;:25;;;;:::i;:::-;1611:28;1631:7;1611:28;;;;;;;;;;;;;;;;;;;;;;1518:126;:::o;725:166:5:-;809:4;850:1;831:21;;:7;:21;;;;823:30;;;;;;;;866:4;:11;;:20;878:7;866:20;;;;;;;;;;;;;;;;;;;;;;;;;859:27;;725:166;;;;:::o;244:167::-;335:1;316:21;;:7;:21;;;;308:30;;;;;;;;353:18;357:4;363:7;353:3;:18::i;:::-;352:19;344:28;;;;;;;;402:4;379;:11;;:20;391:7;379:20;;;;;;;;;;;;;;;;:27;;;;;;;;;;;;;;;;;;244:167;;:::o;477:170::-;571:1;552:21;;:7;:21;;;;544:30;;;;;;;;588:18;592:4;598:7;588:3;:18::i;:::-;580:27;;;;;;;;637:5;614:4;:11;;:20;626:7;614:20;;;;;;;;;;;;;;;;:28;;;;;;;;;;;;;;;;;;477:170;;:::o",
   "source": "pragma solidity ^0.4.24;\n\n// Import the library 'Roles'\nimport \"./Roles.sol\";\n\n// Define a contract 'ConsumerRole' to manage this role - add, remove, check\ncontract ConsumerRole{\n  using Roles for Roles.Role;\n\n  // Define 2 events, one for Adding, and other for Removing\n  event addConsumerEvent(address);\n  event removeConsumerEvent(address);\n\n  // Define a struct 'consumers' by inheriting from 'Roles' library, struct Role\n  Roles.Role private consumers;\n\n  // In the constructor make the address that deploys this contract the 1st consumer\n  constructor() public {\n    \n  }\n\n  // Define a modifier that checks to see if msg.sender has the appropriate role\n  modifier onlyConsumer() {\n    require(isConsumer(msg.sender),\"sender is not a consumer\");\n    _;\n  }\n\n  // Define a function 'isConsumer' to check this role\n  function isConsumer(address account) public view returns (bool) {\n    return consumers.has(account);\n  }\n\n  // Define a function 'addConsumer' that adds this role\n  function addConsumer(address account) public {\n    _addConsumer(account);\n  }\n\n  // Define a function 'renounceConsumer' to renounce this role\n  function renounceConsumer() public {\n    _removeConsumer(msg.sender);\n  }\n\n  // Define an internal function '_addConsumer' to add this role, called by 'addConsumer'\n  function _addConsumer(address account) internal {\n    consumers.add(account);\n    emit addConsumerEvent(account);\n  }\n\n  // Define an internal function '_removeConsumer' to remove this role, called by 'removeConsumer'\n  function _removeConsumer(address account) internal {\n    consumers.remove(account);\n    emit removeConsumerEvent(account);\n  }\n\n}",
-  "sourcePath": "C:\\Project\\nd1309-Project-6b-Example-Template-master\\project-6\\contracts\\coffeeaccesscontrol\\ConsumerRole.sol",
+  "sourcePath": "C:\\Project\\SupplyChain\\project-6\\contracts\\coffeeaccesscontrol\\ConsumerRole.sol",
   "ast": {
     "absolutePath": "project:/contracts/coffeeaccesscontrol/ConsumerRole.sol",
     "exportedSymbols": {
@@ -2525,12 +2525,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xbA841Aefeca340186817e4d3Bb386f8c08fd1b4e",
-      "transactionHash": "0x6669213ee06f90908f4c3dd32a987fc88e24257745a828d33b744f17c7cf40f2"
+      "address": "0x7e26656d70662C9FDFA42d1772A992b5aA3A9025",
+      "transactionHash": "0xe7e12e9f9b4ef11af0b148e132cdbfdb00eff3d9909eb2782d2e750c4058cf76"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-08-28T23:37:48.170Z",
+  "updatedAt": "2021-08-30T17:51:34.619Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

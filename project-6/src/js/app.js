@@ -20,10 +20,11 @@ App = {
   init: async function () {
     App.readForm();
     /// Setup access to blockchain
-    return await App.initWeb3();
+    await App.initWeb3();
   },
 
   readForm: function () {
+    debugger;
     App.sku = $("#sku").val();
     App.upc = $("#upc").val();
     App.ownerID = $("#ownerID").val();
@@ -86,7 +87,6 @@ App = {
   },
 
   getMetaskAccountID: function () {
-    debugger;
     web3 = new Web3(App.web3Provider);
 
     // Retrieving accounts
@@ -117,7 +117,6 @@ App = {
       App.fetchItemBufferTwo();
       App.fetchEvents();
     });
-
     return App.bindEvents();
   },
 
@@ -165,27 +164,33 @@ App = {
       case 10:
         return await App.fetchItemBufferTwo(event);
         break;
+      case 11:
+        debugger;
+        return await App.initialize(event);
+        break;
     }
   },
 
+  //farmer only
   harvestItem: function (event) {
     debugger;
     event.preventDefault();
     var processId = parseInt($(event.target).data("id"));
 
-    App.contracts.SupplyChain.deployed()
+    //App.contracts.SupplyChain.new({ from: App.ownerID })
+    App.contracts.SupplyChain.deployed({ from: App.ownerID })
       .then(function (instance) {
-          debugger;
-          var result = instance.harvestItem(
+        debugger;
+        return instance.harvestItem(
           App.upc,
-          App.metamaskAccountID,
+          App.originFarmerID,
           App.originFarmName,
           App.originFarmInformation,
           App.originFarmLatitude,
           App.originFarmLongitude,
-          App.productNotes
+          App.productNotes,
+          { from: App.metamaskAccountID }
         );
-        return result;
       })
       .then(function (result) {
         debugger;
@@ -198,6 +203,7 @@ App = {
       });
   },
 
+  //farmer only
   processItem: function (event) {
     debugger;
     event.preventDefault();
@@ -216,6 +222,7 @@ App = {
       });
   },
 
+  //farmer only
   packItem: function (event) {
     debugger;
     event.preventDefault();
@@ -234,6 +241,7 @@ App = {
       });
   },
 
+  //farmer only
   sellItem: function (event) {
     debugger;
     event.preventDefault();
@@ -256,6 +264,7 @@ App = {
       });
   },
 
+  //only distributor
   buyItem: function (event) {
     debugger;
     event.preventDefault();
@@ -278,6 +287,7 @@ App = {
       });
   },
 
+  // only farmer
   shipItem: function (event) {
     debugger;
     event.preventDefault();
@@ -296,6 +306,7 @@ App = {
       });
   },
 
+  // only retailer
   receiveItem: function (event) {
     debugger;
     event.preventDefault();
@@ -314,6 +325,7 @@ App = {
       });
   },
 
+  // only customer
   purchaseItem: function (event) {
     debugger;
     event.preventDefault();
@@ -368,8 +380,27 @@ App = {
         console.log("fetchItemBufferTwo", result);
       })
       .catch(function (err) {
-        console.log(err.message);
+        $("#ftc-error").text(err.message);
       });
+  },
+
+  initialize: async function () {
+    debugger;
+    App.contracts.SupplyChain.new({ from: App.ownerID }).then(function (instance) {
+      debugger;
+      try {
+        instance.addFarmer(App.originFarmerID, { from: App.ownerID });
+        instance.addDistributor(App.distributorID, { from: App.ownerID });
+        instance.addRetailer(App.retailerID, { from: App.ownerID  });
+        instance.addConsumer(App.consumerID, { from: App.consumerID  });
+      } 
+      
+      catch (err) 
+      {
+        debugger;
+        $("#ftc-error").text(err.message);
+      }
+    });
   },
 
   fetchEvents: function () {

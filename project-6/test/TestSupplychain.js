@@ -46,7 +46,7 @@ contract("SupplyChain", function (accounts) {
     await supplyChain.addFarmer(originFarmerID, { from: ownerID });
     await supplyChain.addDistributor(distributorID, { from: ownerID });
     await supplyChain.addRetailer(retailerID, { from: ownerID });
-    await supplyChain.addConsumer(consumerID, { from: consumerID });
+    await supplyChain.addConsumer(consumerID, { from: ownerID });
 
     //console.log("initialize supplychain contract")
   });

@@ -80,7 +80,7 @@
   "sourceMap": "154:1488:3:-;;;558:54;8:9:-1;5:2;;;30:1;27;20:12;5:2;558:54:3;585:22;596:10;585;;;:22;;;:::i;:::-;154:1488;;1317:108;1369:20;1381:7;1369;:11;;;;;;:20;;;;;:::i;:::-;1412:7;1400:20;;;;;;;;;;;;1317:108;:::o;244:167:5:-;335:1;316:21;;:7;:21;;;;308:30;;;;;;;;353:18;357:4;363:7;353:3;;;:18;;;:::i;:::-;352:19;344:28;;;;;;;;402:4;379;:11;;:20;391:7;379:20;;;;;;;;;;;;;;;;:27;;;;;;;;;;;;;;;;;;244:167;;:::o;725:166::-;809:4;850:1;831:21;;:7;:21;;;;823:30;;;;;;;;866:4;:11;;:20;878:7;866:20;;;;;;;;;;;;;;;;;;;;;;;;;859:27;;725:166;;;;:::o;154:1488:3:-;;;;;;;",
   "deployedSourceMap": "154:1488:3:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1008:84;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1008:84:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;1158:69;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1158:69:3;;;;;;849:100;;8:9:-1;5:2;;;30:1;27;20:12;5:2;849:100:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1008:84;733:20;742:10;733:8;:20::i;:::-;725:55;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1068:19;1079:7;1068:10;:19::i;:::-;1008:84;:::o;1158:69::-;1197:25;1211:10;1197:13;:25::i;:::-;1158:69::o;849:100::-;905:4;924:20;936:7;924;:11;;:20;;;;:::i;:::-;917:27;;849:100;;;:::o;1317:108::-;1369:20;1381:7;1369;:11;;:20;;;;:::i;:::-;1412:7;1400:20;;;;;;;;;;;;1317:108;:::o;1524:116::-;1579:23;1594:7;1579;:14;;:23;;;;:::i;:::-;1627:7;1613:22;;;;;;;;;;;;1524:116;:::o;725:166:5:-;809:4;850:1;831:21;;:7;:21;;;;823:30;;;;;;;;866:4;:11;;:20;878:7;866:20;;;;;;;;;;;;;;;;;;;;;;;;;859:27;;725:166;;;;:::o;244:167::-;335:1;316:21;;:7;:21;;;;308:30;;;;;;;;353:18;357:4;363:7;353:3;:18::i;:::-;352:19;344:28;;;;;;;;402:4;379;:11;;:20;391:7;379:20;;;;;;;;;;;;;;;;:27;;;;;;;;;;;;;;;;;;244:167;;:::o;477:170::-;571:1;552:21;;:7;:21;;;;544:30;;;;;;;;588:18;592:4;598:7;588:3;:18::i;:::-;580:27;;;;;;;;637:5;614:4;:11;;:20;626:7;614:20;;;;;;;;;;;;;;;;:28;;;;;;;;;;;;;;;;;;477:170;;:::o",
   "source": "pragma solidity ^0.4.24;\n\n// Import the library 'Roles'\nimport \"./Roles.sol\";\n\n// Define a contract 'FarmerRole' to manage this role - add, remove, check\ncontract FarmerRole {\n  using Roles for Roles.Role;\n\n  // Define 2 events, one for Adding, and other for Removing\n  event FarmerAdded(address indexed account);\n  event FarmerRemoved(address indexed account);\n\n  // Define a struct 'farmers' by inheriting from 'Roles' library, struct Role\n  Roles.Role private farmers;\n\n  // In the constructor make the address that deploys this contract the 1st farmer\n  constructor() public {\n    _addFarmer(msg.sender);\n  }\n\n  // Define a modifier that checks to see if msg.sender has the appropriate role\n  modifier onlyFarmer() {\n    require(isFarmer(msg.sender), \"sender is not a farmer\");\n    _;\n  }\n\n  // Define a function 'isFarmer' to check this role\n  function isFarmer(address account) public view returns (bool) {\n    return farmers.has(account);\n  }\n\n  // Define a function 'addFarmer' that adds this role\n  function addFarmer(address account) public onlyFarmer {\n    _addFarmer(account);\n  }\n\n  // Define a function 'renounceFarmer' to renounce this role\n  function renounceFarmer() public {\n    _removeFarmer(msg.sender);\n  }\n\n  // Define an internal function '_addFarmer' to add this role, called by 'addFarmer'\n  function _addFarmer(address account) internal {\n    farmers.add(account);\n    emit FarmerAdded(account);\n  }\n\n  // Define an internal function '_removeFarmer' to remove this role, called by 'removeFarmer'\n  function _removeFarmer(address account) internal {\n    farmers.remove(account);\n    emit FarmerRemoved(account);\n  }\n}",
-  "sourcePath": "C:\\Project\\nd1309-Project-6b-Example-Template-master\\project-6\\contracts\\coffeeaccesscontrol\\FarmerRole.sol",
+  "sourcePath": "C:\\Project\\SupplyChain\\project-6\\contracts\\coffeeaccesscontrol\\FarmerRole.sol",
   "ast": {
     "absolutePath": "project:/contracts/coffeeaccesscontrol/FarmerRole.sol",
     "exportedSymbols": {
@@ -2735,12 +2735,12 @@
         }
       },
       "links": {},
-      "address": "0xfdE56104C666A2aEa71df924b2cCeA052a031C79",
-      "transactionHash": "0x9ab61c2ec010f900b30d2cb6ecbfe761b887a126899b386da57b41cc144c8ebe"
+      "address": "0x1cc01Fd169c292D1eDF2c4af0863A71a217dd626",
+      "transactionHash": "0x69b0119cbcecbdc0cf84e3d87d1423e7877fd6fc1d7987f899dcf6742cec0f2b"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-08-28T23:37:48.153Z",
+  "updatedAt": "2021-08-30T17:51:34.612Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

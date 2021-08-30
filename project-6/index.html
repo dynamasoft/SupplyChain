@@ -16,7 +16,16 @@
         <p style="text-align: center;">Prove the authenticity of coffee using the Ethereum blockchain.</p>
     </div>
 
-    <div id="ftc-harvest">
+    <div id="ftc-harvest">        
+        <div class=form-break></div>
+        <h2>Admin Task Must be owner</h2>
+        <div class="form-group">           
+            <div class=button-div>
+                <button class="btn-addFarmer" id="button" type="button" data-id="11">Initialize Roles</button>                
+            </div>
+        </div>
+        <div class=form-break></div>
+
         <h2>Product Overview</h2>
         <div class="form-group">
             SKU
@@ -27,7 +36,7 @@
             <input type="number" id="upc" name="upc" value=1><br>
             Current Owner ID
             <br>
-            <input type="text" id="ownerID" name="ownerID" value="0x963865f57804b38459dd4b2da2f760211a200438" size="50"><br>
+            <input type="text" id="ownerID" name="ownerID" value="0x2B7C994fC6Af8A82CDD51BAD066b42D1c71d99C7" size="50"><br>
             <div class=button-div>
                 <button class="btn-fetchOne" id="button" type="button" data-id="9">Fetch Data 1</button>
                 <button class="btn-fetchTwo" id="button" type="button" data-id="10">Fetch Data 2</button>
@@ -38,7 +47,7 @@
         <div class="form-group">
             Farmer ID
             <br>
-            <input type="text" id="originFarmerID" name="originFarmerID" value="0x99c289eb2aacec289631a5ddf62cf27a63d4494f"
+            <input type="text" id="originFarmerID" name="originFarmerID" value="0x7ADbC0b009138f1BA066F386377F9AD127296d4E"
                 size="50"><br>
             Farm Name
             <br>
@@ -69,16 +78,16 @@
             <input type="number" id="productPrice" name="productPrice" value=1>ETH<br>
             Distributor ID
             <br>
-            <input type="text" id="distributorID" name="distributorID" value="0xf1b1bcd24dad92303dd9fe78be639f7bcf9c238d"
+            <input type="text" id="distributorID" name="distributorID" value="0xb3378e00415Dd12315Fd031a204923EB8FAb9804"
                 size="50">
             <br>
             Retailer ID
             <br>
-            <input type="text" id="retailerID" name="retailerID" value="0x0fb2bfefd526966c87efa19f6693d50971763fc2"
+            <input type="text" id="retailerID" name="retailerID" value="0xf0ccC47e6D2D8C047Baab58E51DB43F440df4D59"
                 size="50"><br>
-            Distributor ID
+            Consumer ID
             <br>
-            <input type="text" id="consumerID" name="consumerID" value="0x5d777e9127b28fb119e81a6304278a0a21bef1c4"
+            <input type="text" id="consumerID" name="consumerID" value="0x067744B38e0DbF5769B59C2640355901007a3A9B"
                 size="50"><br>
             <br>
             <button class="btn-buy" id="button" type="button" data-id="5">Buy</button>
@@ -99,6 +108,16 @@
         <hr>
     </div>
     <div id="ftc-item"></div>
+
+<br/>
+<br/>
+    <h2>Error History</span></h2>
+    <div>
+        <div id="ftc-error">                        
+        </div>
+        <br>
+        <hr>
+    </div>    
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/web3.min.js"></script>
