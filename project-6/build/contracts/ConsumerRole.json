@@ -285,7 +285,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1522,
+                          "referencedDeclaration": 1537,
                           "src": "586:3:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -393,7 +393,7 @@
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 1522,
+                              "referencedDeclaration": 1537,
                               "src": "736:3:1",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
@@ -481,10 +481,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1525,
-                        1526
+                        1540,
+                        1541
                       ],
-                      "referencedDeclaration": 1526,
+                      "referencedDeclaration": 1541,
                       "src": "717:7:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -823,7 +823,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1522,
+                          "referencedDeclaration": 1537,
                           "src": "1213:3:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -1589,7 +1589,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 1522,
+                                  "referencedDeclaration": 1537,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -1672,10 +1672,10 @@
                                 }
                               ],
                               "overloadedDeclarations": [
-                                1525,
-                                1526
+                                1540,
+                                1541
                               ],
-                              "referencedDeclaration": 1526,
+                              "referencedDeclaration": 1541,
                               "type": "function (bool,string memory) pure",
                               "value": "require"
                             },
@@ -1735,7 +1735,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 1522,
+                                      "referencedDeclaration": 1537,
                                       "type": "msg",
                                       "value": "msg"
                                     },
@@ -2198,7 +2198,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 1522,
+                                  "referencedDeclaration": 1537,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -2699,8 +2699,7 @@
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-08-30T20:58:14.419Z",
-  "networkType": "ethereum",
+  "updatedAt": "2021-08-31T05:51:20.293Z",
   "devdoc": {
     "methods": {}
   },

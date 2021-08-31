@@ -20,6 +20,7 @@ contract("SupplyChain", function (accounts) {
   const distributorID = accounts[2];
   const retailerID = accounts[3];
   const consumerID = accounts[4];
+  const newOwnerID = accounts[5];
   const emptyAddress = "0x00000000000000000000000000000000000000";
 
   const HarvestedState = 0;
@@ -37,6 +38,7 @@ contract("SupplyChain", function (accounts) {
   console.log("Distributor: accounts[2] ", accounts[2]);
   console.log("Retailer: accounts[3] ", accounts[3]);
   console.log("Consumer: accounts[4] ", accounts[4]);
+  console.log("New Owner: accounts[5] ", accounts[5]);
 
   var supplyChain;
 
@@ -46,7 +48,7 @@ contract("SupplyChain", function (accounts) {
     await supplyChain.addFarmer(originFarmerID, { from: ownerID });
     await supplyChain.addDistributor(distributorID, { from: ownerID });
     await supplyChain.addRetailer(retailerID, { from: ownerID });
-    await supplyChain.addConsumer(consumerID, { from: ownerID });
+    await supplyChain.addConsumer(consumerID, { from: ownerID });    
 
     //console.log("initialize supplychain contract")
   });
@@ -280,7 +282,7 @@ contract("SupplyChain", function (accounts) {
   // // 9th Test
   it("9. Testing smart contract function fetchItemBufferOne() that allows anyone to fetch item details from blockchain", async () => {
     // Retrieve the just now saved item from blockchain by calling function fetchItem()
-    const resultBufferOne = await debug(supplyChain.fetchItemBufferOne.call(upc));    
+    const resultBufferOne = await supplyChain.fetchItemBufferOne.call(upc);    
     // Verify the result set:
     assert.equal(resultBufferOne[0], sku, 'Error: Invalid item SKU')
     assert.equal(resultBufferOne[1], upc, 'Error: Invalid item UPC')
@@ -295,7 +297,7 @@ contract("SupplyChain", function (accounts) {
   // // 10th Test
   it("10. Testing smart contract function fetchItemBufferTwo() that allows anyone to fetch item details from blockchain", async () => {
     // Retrieve the just now saved item from blockchain by calling function fetchItem()
-    const resultBufferTwo = await supplyChain.fetchItemBufferTwo.call(upc);
+    var resultBufferTwo = await supplyChain.fetchItemBufferTwo.call(upc);
     // Verify the result set:
     assert.equal(resultBufferTwo[0], sku, 'Error: Invalid item SKU')
     assert.equal(resultBufferTwo[1], upc, 'Error: Invalid item UPC')
@@ -307,4 +309,24 @@ contract("SupplyChain", function (accounts) {
     assert.equal(resultBufferTwo[7], retailerID, 'Error: Missing or Invalid retailerID')
     assert.equal(resultBufferTwo[8], consumerID, 'Error: Missing or Invalid consumerID')
   });
+
+
+  it("11. Testing smart contract function transfer ownership", async () => {    
+    // Retrieve the just now saved item from blockchain by calling function fetchItem()
+    const tx = await supplyChain.transferOwnership(newOwnerID, { from: ownerID });
+    const testNewOwnerID = await supplyChain.getOwner();        
+    
+    // Verify the result set:    
+    assert.equal(testNewOwnerID, newOwnerID, 'The Owner has not been transferred')
+  });
+
+  it("12. Testing smart contract function renounce ownership", async () => {    
+    // Retrieve the just now saved item from blockchain by calling function fetchItem()
+    const tx = await supplyChain.renounceOwnership({from:ownerID});
+    const testNewOwnerID = await supplyChain.getOwner();           
+    
+    // Verify the result set:    
+    assert.equal(testNewOwnerID, '0x0000000000000000000000000000000000000000', 'The Owner has not been transferred')
+  });
+
 });

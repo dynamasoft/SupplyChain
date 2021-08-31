@@ -9,10 +9,10 @@ import "../coffeecore/Ownable.sol";
 
 
 
-contract SupplyChain is FarmerRole, DistributorRole, RetailerRole, ConsumerRole {
+contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, ConsumerRole {
 
   // Define 'owner'
-  address owner;
+  //address owner;
 
   // Define a variable called 'upc' for Universal Product Code (UPC)
   uint  upc;
@@ -200,7 +200,7 @@ contract SupplyChain is FarmerRole, DistributorRole, RetailerRole, ConsumerRole 
   // Call modifier to check if upc has passed previous supply chain stage
   harvested(_upc)
   // Call modifier to verify caller of this function
-  verifyCaller(msg.sender)
+  verifyCaller(items[_upc].ownerID)
   onlyFarmer()  
   {
     // Update the appropriate fields
@@ -214,6 +214,7 @@ contract SupplyChain is FarmerRole, DistributorRole, RetailerRole, ConsumerRole 
   // Call modifier to check if upc has passed previous supply chain stage
   processed(_upc)
   // Call modifier to verify caller of this function
+  verifyCaller(items[_upc].ownerID)
   onlyFarmer()
   {
     // Update the appropriate fields
@@ -227,6 +228,7 @@ contract SupplyChain is FarmerRole, DistributorRole, RetailerRole, ConsumerRole 
   // Call modifier to check if upc has passed previous supply chain stage
   packed(_upc)
   // Call modifier to verify caller of this function
+  verifyCaller(items[_upc].ownerID)
   onlyFarmer()
   {
     // Update the appropriate fields
@@ -267,6 +269,7 @@ contract SupplyChain is FarmerRole, DistributorRole, RetailerRole, ConsumerRole 
     // Call modifier to check if upc has passed previous supply chain stage
     sold(_upc)
     // Call modifier to verify caller of this function
+    //verifyCaller(items[_upc].ownerID)
     onlyFarmer()    
     {
     // Update the appropriate fields
